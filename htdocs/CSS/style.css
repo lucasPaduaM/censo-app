@@ -1,0 +1,97 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+}
+
+/*Defino los margin, padding y bordes por defecto en 0*/
+
+body {
+
+    font-family: 'Righteous', cursive;
+
+    width: 100%;
+
+}
+
+#cabeza {
+
+    background: linear-gradient(to bottom right, blue, pink);
+    display: flex;
+    justify-content: space-between;
+    height: 200px;
+}
+
+#imgLogo {
+
+    width: 160px;
+    margin-left: 30px;
+    cursor: pointer;
+
+}
+
+#contenedorNav {
+
+    background-color: blue;
+
+}
+
+#barraNav {
+
+    align-items: center;
+    padding: 10px;
+    height: 45px;
+    display: flex;
+    margin-right: 10px;
+    color: azure;
+    font-size: 18px;
+    text-decoration: none;
+
+
+}
+
+#barraNav a {
+
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: azure;
+}
+
+#barraNav a:hover {
+
+    background-color: rgb(212, 129, 194);
+    transition: 0.5s;
+
+    /*teansicion de color en enlaces se modifican desde el transition*/
+}
+
+#menusCabeza {
+
+    align-items: center;
+    padding: 10px;
+    height: 45px;
+    display: flex;
+    margin-right: 10px;
+    color: azure;
+    font-size: 18px;
+    text-decoration: none;
+
+}
+
+#menusCabeza a {
+
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: azure;
+
+}
+
+#menusCabeza a:hover {
+
+    background-color: rgb(212, 129, 194);
+    transition: 0.5s;
+}
