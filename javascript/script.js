@@ -3,6 +3,7 @@ let miSistema = new Sistema();
 
 function inicio() {
     document.getElementById("registrarCensista").addEventListener("click", registrar);
+    document.getElementById("formRegistroBtn").addEventListener("click", ocultarMostrarRegistro);
 }
 
 function registrar() {
@@ -12,11 +13,11 @@ function registrar() {
     let resultado = document.getElementById("mensajesRegistro");
     let mensajes = "";
 
-    if (nombreCensista.typeof == "undefined") {
-        mensajes = "El nombre no puede estar vacio"
-    } else if (nombreDeUsuario.typeof == "undefined") {
+    if (nombreCensista == "") {
+        mensajes = "El nombre no puede estar vacio";
+    } else if (nombreDeUsuario == "") {
         mensajes = "El nombre de usuario no puede estar vacio";
-    } else if (contraseniaCensista.typeof == "undefined") {
+    } else if (contraseniaCensista == "") {
         mensajes = "La contrasenia no puede estar vacia";
     } else {
         let cumpleMayuscula = false;
@@ -58,6 +59,15 @@ function registrar() {
         } else {
             mensajes = "La contraseña debe tener como minimo 5 caracteres";
         }
-        resultado.innerHTML = mensajes;
+    }
+    resultado.innerHTML = mensajes;
+}
+
+function ocultarMostrarRegistro() {
+    if (document.getElementById("formLogin").hidden == true) {
+        document.getElementById("formRegistro").hidden = false;
+    } else {
+        document.getElementById("formRegistro").hidden = true;
+        document.getElementById("formLogin").hidden = false;
     }
 }
