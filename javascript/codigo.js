@@ -62,7 +62,7 @@ function registrar() {
                     document.getElementById("contraseniaRegistro").value = "";
 
                     mensajes = "Censista registrado correctamente";
-                    console.log("Usuario ingresado" + miSistema.listaUsuarios[miSistema.listaUsuarios.length - 1]);
+                    console.log("Usuario ingresado: " + miSistema.listaUsuarios[miSistema.listaUsuarios.length - 1].nombreDeUsuario);
                     flag = true;
                 } else {
                     mensajes = "El censista ya existe! No se ha agregado";
