@@ -44,18 +44,41 @@ class Sistema {
     }
 
     registrarCensista(nombre, nombreDeUsuario, contrasenia) {
-        let nuevoCensista = new Censista();
+        if (this.buscarCensista(nombreDeUsuario) == undefined) {
 
-        nuevoCensista.nombre = nombre;
-        nuevoCensista.nombreDeUsuario = nombreDeUsuario;
-        nuevoCensista.contrasenia = contrasenia;
+            let nuevoCensista = new Censista();
+            nuevoCensista.nombre = nombre;
+            nuevoCensista.nombreDeUsuario = nombreDeUsuario;
+            nuevoCensista.contrasenia = contrasenia;
 
-        if (nuevoCensista != null && this.buscarCensista(nuevoCensista.nombreDeUsuario) == null) {
             this.listaUsuarios.push(nuevoCensista);
+
             return true;
         } else {
             return false;
         }
+    }
+
+    loguearCensista(nombreDeUsuario, contrasenia) {
+        let censistaTemp = new Censista();
+
+        censistaTemp.nombreDeUsuario = nombreDeUsuario;
+        censistaTemp.contrasenia = contrasenia;
+        0
+        let censistaBD = this.buscarCensista(censistaTemp.nombreDeUsuario);
+
+        if (censistaBD != null) {
+            if (censistaBD.contrasenia === censistaTemp.contrasenia) {
+                this.usuarioLogueado = censistaTemp;
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    desloguearse() {
+        this.usuarioLogueado = null;
     }
 
     buscarCensista(nombreDeUsuario) {
@@ -68,20 +91,28 @@ class Sistema {
             }
         }
     }
+
+    cargarCensistas() {
+        this.registrarCensista("juan", "juanceto01", "Hola1234");
+        this.registrarCensista("josefina", "josefina02", "Hola1234");
+    }
+
+    cargarCensos() {
+
+    }
 }
-
-let id = 0;
 class Censista {
-
+    static idCensista = 0;
     constructor() {
+        Censista.idCensista++;
         this.nombre = "";
         this.nombreDeUsuario = "";
         this.contrasenia = "";
-        this.id = id++;
+        this.id = Censista.idCensista;
     }
 }
 
-class Persona {
+class CensoPersona {
     constructor() {
         this.nombre = "";
         this.apellido = "";
@@ -89,7 +120,7 @@ class Persona {
         this.ci = 0;
         this.departamento = "";
         this.ocupacion = "";
-        this.censada = null;
+        this.validado = null;
         this.idCensista = 0;
     }
 }

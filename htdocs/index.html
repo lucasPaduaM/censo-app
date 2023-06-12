@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Censo WebApp</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="../javascript/classes.js"></script>
-    <script src="../javascript/script.js"></script>
+    <script src="../javascript/clases.js"></script>
+    <script src="../javascript/codigo.js"></script>
     <!--LINK FUENTES DE FONT GOOGLE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,42 +22,67 @@
         <img id="imgLogo" src="img/CENSO-LOGO.png" alt="LOGO">
 
         <div id="menusCabeza">
-            <a href="#">LOGIN</a>
+            <a id="formLoginBtn">LOG IN</a>
             <a id="formRegistroBtn">REGISTRO</a>
+            <a id="logOutBtn" style="display: none;">LOG OUT</a>
         </div>
 
     </div>
-
     <div id="contenedorNav">
         <nav id="barraNav">
-
-            <a href="#">INICIO</a>
-            <a href="#">FORMULARIO</a>
-            <a href="#">CONTACTO</a>
-            <a href="#">INFO</a>
-
         </nav>
-
     </div>
 
-    <div id="formRegistro" hidden>
-        <label>Nombre: </label><input type="text" id="nombreRegistro"><br>
-        <label>Nombre de usuario: </label><input type="text" id="nombreDeUsuarioRegistro"><br>
-        <label>Contraseña: </label><input type="password" id="contraseniaRegistro"><br>
-        <input type="button" id="registrarCensista" value="Registrar">
-        <p id="mensajesRegistro"></p>
+    <div class="formsEstilos" id="formRegistro" hidden>
+        <center>
+            <h1>Registro</h1>
+            <br>
+            <input class="txtEstilos" type="text" id="nombreRegistro" placeholder="Nombre..."><br>
+            <input class="txtEstilos" type="text" id="nombreDeUsuarioRegistro" placeholder="Usuario..."><br>
+            <input class="txtEstilos" type="password" id="contraseniaRegistro" placeholder="Contraseña..."><br>
+            <input class="btnsForms" type="button" id="registrarCensista" value="Registrar">
+            <br>
+            <p class="estilosMensajes" id="mensajesRegistro"></p>
+        </center>
     </div>
-    <div id="formLogin" hidden>
-        <label>Nombre de usuario: </label><input type="text" id="nombreDeUsuarioRegistro"><br>
-        <label>Contraseña: </label><input type="password" id="contraseniaRegistro"><br>
-        <input type="button" id="registrarCensista" value="Login">
-        <p id="mensajesRegistro"></p>
+
+    <div class="formsEstilos" id="formLogin" hidden>
+        <center>
+            <h1>Login</h1>
+            <br>
+            <input class="txtEstilos" type="text" id="nombreDeUsuarioLogin" placeholder="Usuario..."><br>
+            <input class="txtEstilos" type="password" id="contraseniaLogin" placeholder="Contraseña..."><br>
+            <input class="btnsForms" type="button" id="loguearCensista" value="Login">
+            <br>
+            <p class="estilosMensajes" id="mensajesLogin"></p>
+        </center>
+    </div>
+
+    <div class="formsEstilos" id="formInvitado">
+        <center>
+            <h1>Formulario invitado</h1>
+            <br>
+            <input class="txtEstilos" type="text" id="ciInvitado" placeholder="Documento..."><br>
+            <input class="btnsForms" type="button" id="buscarCensoInvitado" value="Buscar">
+            <br>
+            <p class="estilosMensajes" id="mensajesLogin"></p>
+        </center>
+    </div>
+
+    <div class="formsEstilos" id="censistaMenu" style="display: none;">
+        <center>
+            <h1 id="nombreCensistaH1">Censista: </h1>
+            <br>
+            <input class="btnsForms" type="button" value="Ver censos pendientes por validar">
+            <br>
+            <input class="btnsForms" type="button" value="Ingresar censo">
+            <br>
+            <input class="btnsForms" type="button" value="Cambiar censista a cargo de censo">
+        </center>
     </div>
 
     <div id="contenedor-banner">
-
         <img src="img/BANNER.png" id="imgBanner">
-
         <table id="tabla-estadisticasIndex">
             <h2 id="encabezadoTabla">Estadísticas</h2>
             <tr>
@@ -90,20 +115,6 @@
             </tr>
         </table>
     </div>
-
-    <div id="form-invitado">
-        <!--FORMULARIO DE INVITADO-->
-        <h1>FORMULARIO <br> INVITADO</h1><br>
-
-        <input type="text" id="txtInvitado" placeholder="Ingrese cedula de identidad..."><br>
-        <br>
-
-        <input type="button" id="btnBuscarInvitado" value="Buscar">
-
-
-    </div>
-
-
     <!--<div id="form-login">-->
     <!--FORMULARIO DE LOGIN-->
     <!--   <h1>FORMULARIO <br> LOGIN</h1><br>
@@ -130,17 +141,16 @@
     
     <div id="tabla-listas">-->
     <!--LISTAS DEL INDEX-->
-
-
-
     </div>
 
     </div>
 
 </body>
 <footer>
-    <h4>PROGRAMACION 1</h4><br>
-    <h4>ORT</h4>
+    <h3>PROGRAMACION 1</h3>
+    <h3>Universidad ORT</h3>
+    <br>
+    <h4>Emanuel Gomez - Lucas Padua</h4>
 </footer>
 
 </html>
