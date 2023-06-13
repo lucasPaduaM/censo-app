@@ -99,29 +99,32 @@ function ocultarMostrarLogin() {
 function login() {
     let nombreDeUsuario = document.getElementById("nombreDeUsuarioLogin").value;
     let contraseniaCensista = document.getElementById("contraseniaLogin").value;
-    let mensajeErr = "";
-    let mensajes = document.getElementById("mensajesLogin");
+    let mensaje = "";
+    let resultado = document.getElementById("mensajesLogin");
+    let flag = false;
 
     let respuesta = miSistema.loguearCensista(nombreDeUsuario, contraseniaCensista);
 
     if (nombreDeUsuario == "") {
-        mensajeErr = "El nombre de usuario no puede estar vacio";
+        mensaje = "El nombre de usuario no puede estar vacio";
     } else if (contraseniaCensista == "") {
-        mensajeErr = "La contraseña no puede estar vacia";
+        mensaje = "La contraseña no puede estar vacia";
     } else {
         if (respuesta) {
             miSistema.usuarioLogueado = miSistema.buscarCensista(nombreDeUsuario);
-            document.getElementById("nombreDeUsuarioLogin").value = "";
-            document.getElementById("contraseniaLogin").value = "";
-            ocultarYMostrarObjLogin();
-            document.getElementById("nombreCensistaH1").innerHTML += " " + nombreDeUsuario;
-            console.log("login exitoso");
-            console.log("Usuario logueado: " + miSistema.usuarioLogueado.nombreDeUsuario);
+            mensaje = "Login exitoso";
+            console.log(miSistema.usuarioLogueado);
+            flag = true;
         } else {
-            mensajeErr = "El usuario no existe o la contraseña es incorrecta";
+            mensaje = "El usuario no existe o la contraseña es incorrecta";
         }
     }
-    mensajes.innerHTML = mensajeErr;
+    resultado.innerHTML = mensaje;
+    if (flag) {
+        document.getElementById("nombreDeUsuarioLogin").value = "";
+        document.getElementById("contraseniaLogin").value = "";
+        setTimeout(ocultarYMostrarObjLogin, 2400);
+    }
 }
 
 function logout() {
@@ -131,7 +134,7 @@ function logout() {
     document.getElementById("formInvitado").hidden = false;
     document.getElementById("formLoginBtn").style.display = "block";
     document.getElementById("formRegistroBtn").style.display = "block";
-    console.log("Usuario logueado" + miSistema.usuarioLogueado);
+    console.log("Usuario logueado: " + miSistema.usuarioLogueado);
 }
 
 function ocultarYMostrarObjLogin() {
