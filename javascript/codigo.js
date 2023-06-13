@@ -8,7 +8,10 @@ function inicio() {
     document.getElementById("formRegistroBtn").addEventListener("click", ocultarMostrarRegistro);
     document.getElementById("formLoginBtn").addEventListener("click", ocultarMostrarLogin);
     document.getElementById("logOutBtn").addEventListener("click", logout);
+    document.getElementById("btnAgregarCenso").addEventListener("click", agregarCensista);
+    
 }
+
 
 function registrar() {
     let nombreCensista = document.getElementById("nombreRegistro").value;
@@ -150,3 +153,76 @@ function ocultarYMostrarObjLogin() {
     //muestro boton log out
     document.getElementById("logOutBtn").style.display = "block";
 }
+
+function agregarCensista(){
+
+let nombrePersona=document.querySelector("#nombrePersona").value;
+let apellidoPersona=document.querySelector("#apellidoPersona").value;
+let edadPersona=document.querySelector("#edadPersona").value;
+let ciPersona=Number(document.querySelector("#ciPersona").value);
+let selectorDepartamento=document.querySelector("#selectDepartamento").value;
+let selectorOcupacion=document.querySelector("#selectOcupacion").value;
+let mensaje=" ";
+
+
+
+//variables validaciones:
+let cumpleNombre=false;
+let cumpleApellido=false;
+let cumpleEdad=false;
+let ciLimpia=eliminarCaracteres(ciPersona);
+
+//edad: valor entre 0 y 130
+if(edadPersona=="" && edadPersona > 130 || edadPersona < 0){
+
+    mensaje="Edad no valida!"
+
+}else{
+    cumpleEdad=true;
+}
+
+//nombre: string no vacío
+for(let pos=0; pos < nombrePersona.length;pos++){
+
+    if(nombrePersona !="" && isNaN(nombrePersona)){
+
+        cumpleNombre=true;
+
+}else{
+    mensaje="Nombre no valido!";
+}
+}
+
+
+//apellido: string no vacío
+for(let pos=0; pos < apellidoPersona.length;pos++){
+
+    if(apellidoPersona !="" && isNaN(apellidoPersona)){
+
+        cumpleApellido=true;
+
+}else{
+    mensaje="Apellido no valido!";
+}
+}
+
+if(cumpleNombre==true && cumpleApellido==true && cumpleEdad==true){
+
+    let datos=miSistema.agregarCenso(nombrePersona, apellidoPersona, edadPersona, ciLimpia);
+        //limpio cajas de texto y muestro mensaje de ingreso. 
+    if(datos){
+
+        nombrePersona=document.querySelector("#nombrePersona").value=" ";
+        apellidoPersona=document.querySelector("#apellidoPersona").value=" ";
+        edadPersona=document.querySelector("#edadPersona").value=" ";
+        ciPersona=Number(document.querySelector("#ciPersona").value)=" ";
+
+        //muestro mensaje.
+        mensaje="Censo Agregado!";
+    }
+
+
+    }       
+
+}
+

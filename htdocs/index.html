@@ -75,11 +75,113 @@
             <br>
             <input class="btnsForms" type="button" value="Ver censos pendientes por validar">
             <br>
-            <input class="btnsForms" type="button" value="Ingresar censo">
+            <input class="btnsForms" id="btnAgregarCenso" type="button" value="Ingresar censo">
             <br>
             <input class="btnsForms" type="button" value="Cambiar censista a cargo de censo">
         </center>
     </div>
+
+    <div class="formsEstilos" id="formAgregarCenso">
+        <center>
+            <h1>Agregar Censo</h1>
+            <br>
+            <input class="txtEstilos" type="text" id="nombrePersona" placeholder="Nombre..."><br>
+            <input class="txtEstilos" type="text" id="apellidoPersona" placeholder="Apellido..."><br>
+            <input class="txtEstilos" type="number" id="edadPersona" placeholder="Edad..."><br>
+            <input class="txtEstilos" type="text" id="ciPersona" placeholder="Cedula..."><br>
+            
+            <label for="selectDepartamento">Departamento</label><br><br>
+
+            <select class="txtEstilos" id="selectDepartamento">
+
+                <option value="Artigas">Artigas</option>
+                <option value="Canelones">Canelones</option>
+                <option value="Cerro Largo">Cerro Largo</option>
+                <option value="Colonia">Colonia</option>
+                <option value="Durazno">Durazno</option>
+                <option value="Flores">Flores</option>
+                <option value="Florida">Florida</option>
+                <option value="Lavalleja">Lavalleja</option>
+                <option value="Maldonado">Maldonado</option>
+                <option value="Montevideo">Montevideo</option>
+                <option value="Paysandu">Paysandú</option>
+                <option value="Rio Negro">Río Negro</option>
+                <option value="Rivera">Rivera</option>
+                <option value="Rocha">Rocha</option>
+                <option value="Salto">Salto</option>
+                <option value="San Jose">San José</option>
+                <option value="Soriano">Soriano</option>
+                <option value="Tacuarembo">Tacuarembó</option>
+                <option value="Treinta y Tres">Treinta y Tres</option>
+
+            </select><br>
+
+            <label for="selectOcupacion">Ocupacion</label><br><br>
+            <select class="txtEstilos" id="selectOcupacion">
+
+                <option value="Dependiente">Dependiente</option>
+                <option value="Independiente">Independiente</option>
+                <option value="Estudiante">Estudiante</option>
+
+            </select><br>
+
+            <input class="btnsForms" type="button" id="agregarCensado" value="Agregar">
+            <br>
+            <p class="estilosMensajes" id="mensajesAgregar"></p>
+        </center>
+    </div>
+
+
+    <div class="formsEstilos" id="formModificarCenso" hidden>
+        <center>
+            <h1>Modificar Censo</h1>
+            <br>
+            <input class="txtEstilos" type="text" id="nombrePersona" placeholder="Nombre..."><br>
+            <input class="txtEstilos" type="text" id="apellidoPersona" placeholder="Apellido..."><br>
+            <input class="txtEstilos" type="text" id="edadPersona" placeholder="Edad..."><br>
+            <input class="txtEstilos" type="text" id="ciPersona" placeholder="Cedula..."><br>
+            
+            <label for="selectDepartamento">Departamento</label><br><br>
+
+            <select class="txtEstilos" id="selectDepartamento">
+
+                <option value="Artigas">Artigas</option>
+                <option value="Canelones">Canelones</option>
+                <option value="Cerro Largo">Cerro Largo</option>
+                <option value="Colonia">Colonia</option>
+                <option value="Durazno">Durazno</option>
+                <option value="Flores">Flores</option>
+                <option value="Florida">Florida</option>
+                <option value="Lavalleja">Lavalleja</option>
+                <option value="Maldonado">Maldonado</option>
+                <option value="Montevideo">Montevideo</option>
+                <option value="Paysandu">Paysandú</option>
+                <option value="Rio Negro">Río Negro</option>
+                <option value="Rivera">Rivera</option>
+                <option value="Rocha">Rocha</option>
+                <option value="Salto">Salto</option>
+                <option value="San Jose">San José</option>
+                <option value="Soriano">Soriano</option>
+                <option value="Tacuarembo">Tacuarembó</option>
+                <option value="Treinta y Tres">Treinta y Tres</option>
+
+            </select><br>
+
+            <label for="selectOcupacion">Ocupacion</label><br><br>
+            <select class="txtEstilos" id="selectOcupacion">
+
+                <option value="Dependiente">Dependiente</option>
+                <option value="Independiente">Independiente</option>
+                <option value="Estudiante">Estudiante</option>
+
+            </select><br>
+
+            <input class="btnsForms" type="button" id="ModificarCensista" value="Modificar">
+            <br>
+            <p class="estilosMensajes" id="mensajesModificar"></p>
+        </center>
+    </div>
+
 
     <div id="contenedor-banner">
         <img src="img/BANNER.png" id="imgBanner">

@@ -38,9 +38,59 @@ class sistema{
 class Sistema {
     constructor() {
         this.listaUsuarios = new Array();
+        this.listaCensoPersona = new Array();
         this.censos = new Array();
         this.censosPendientes = new Array();
         this.usuarioLogueado = null;
+    }
+
+    agregarCenso(pNombre, pApellido, pEdad, pCi, pDepartamento, pOcupacion, cId){
+
+        let objPersona = new CensoPersona(pNombre, pApellido, pEdad, pCi, pDepartamento, pOcupacion, cId);
+        if(this.buscarCedula(pCi)){
+        this.listaCensoPersona.push(objPersona);
+    }
+    }
+
+    buscarCi(personaCedula){
+
+        let encontrado=false;
+
+        for(let pos=0; pos<this.listaCensoPersona.length && !encontrado;pos++){
+
+        if(personaCedula==this.listaCensoPersona[pos].pCi){
+
+            encontrado = true;
+
+            return encontrado;
+        }
+           
+        }
+        
+    }
+
+    eliminarCaracteres(ciPersona){
+
+        let nuevoString=" ";
+
+        let caracteresEspeciales="!@#$%^&*()_+=[{};':\"\\|,.<>/?-";
+
+        for(let pos=0; pos < ciPersona.length; pos++){
+
+            let caracter= ciPersona.charAt(pos);
+
+            if(caracteresEspeciales.indexOf(caracter)=== -1){
+
+                // indexOf() con === -1 para verificar si es un caracter especial.
+                // Retorna -1 si no encuentra caracteres especiales.
+                //Armo nuevo string con string limpio.
+
+                nuevoString+=caracter;
+
+            }
+
+        }
+            return nuevoString;
     }
 
     registrarCensista(nombre, nombreDeUsuario, contrasenia) {
@@ -113,14 +163,14 @@ class Censista {
 }
 
 class CensoPersona {
-    constructor() {
-        this.nombre = "";
-        this.apellido = "";
-        this.edad = 0;
-        this.ci = 0;
-        this.departamento = "";
-        this.ocupacion = "";
+    constructor(pNombre, pApellido, pEdad, pCi, pDepartamento, pOcupacion, cId) {
+        this.nombre = pNombre;
+        this.apellido = pApellido;
+        this.edad = pEdad;
+        this.ci = pCi;
+        this.departamento = pDepartamento;
+        this.ocupacion = pOcupacion;
         this.validado = null;
-        this.idCensista = 0;
+        this.idCensista = cId;
     }
 }
