@@ -97,8 +97,8 @@ class Sistema {
         this.registrarCensista("josefina", "josefina02", "Hola1234");
     }
 
-    cargarCensos() {
-
+    ingresarCenso(){
+        
     }
 }
 class Censista {

@@ -94,13 +94,14 @@ body {
     padding: 20px;
     text-decoration: none;
     color: azure;
+    transition: 0.4s;
 
 }
 
 #menusCabeza a:hover {
 
     background-color: rgb(212, 129, 194);
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 .formsEstilos {
@@ -165,13 +166,14 @@ body {
     border: 1px solid black;
     cursor: pointer;
     margin: 10px;
+    transition: 0.4s;
 }
 
 .btnsForms:hover {
 
     background-color: rgb(116, 116, 167);
     color: aliceblue;
-    transition: 0.5s;
+    transition: 0.4s;
 
 
 }
