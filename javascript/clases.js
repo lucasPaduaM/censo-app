@@ -44,53 +44,53 @@ class Sistema {
         this.usuarioLogueado = null;
     }
 
-    agregarCenso(pNombre, pApellido, pEdad, pCi, pDepartamento, pOcupacion, cId){
+    agregarCenso(pNombre, pApellido, pEdad, pCi, pDepartamento, pOcupacion, cId) {
 
         let objPersona = new CensoPersona(pNombre, pApellido, pEdad, pCi, pDepartamento, pOcupacion, cId);
-        if(this.buscarCedula(pCi)){
-        this.listaCensoPersona.push(objPersona);
-    }
-    }
-
-    buscarCi(personaCedula){
-
-        let encontrado=false;
-
-        for(let pos=0; pos<this.listaCensoPersona.length && !encontrado;pos++){
-
-        if(personaCedula==this.listaCensoPersona[pos].pCi){
-
-            encontrado = true;
-
-            return encontrado;
+        if (this.buscarCedula(pCi)) {
+            this.listaCensoPersona.push(objPersona);
         }
-           
-        }
-        
     }
 
-    eliminarCaracteres(ciPersona){
+    buscarCi(personaCedula) {
 
-        let nuevoString=" ";
+        let encontrado = false;
 
-        let caracteresEspeciales="!@#$%^&*()_+=[{};':\"\\|,.<>/?-";
+        for (let pos = 0; pos < this.listaCensoPersona.length && !encontrado; pos++) {
 
-        for(let pos=0; pos < ciPersona.length; pos++){
+            if (personaCedula == this.listaCensoPersona[pos].pCi) {
 
-            let caracter= ciPersona.charAt(pos);
+                encontrado = true;
 
-            if(caracteresEspeciales.indexOf(caracter)=== -1){
+                return encontrado;
+            }
+
+        }
+
+    }
+
+    eliminarCaracteres(ciPersona) {
+
+        let nuevoString = " ";
+
+        let caracteresEspeciales = "!@#$%^&*()_+=[{};':\"\\|,.<>/?-";
+
+        for (let pos = 0; pos < ciPersona.length; pos++) {
+
+            let caracter = ciPersona.charAt(pos);
+
+            if (caracteresEspeciales.indexOf(caracter) === -1) {
 
                 // indexOf() con === -1 para verificar si es un caracter especial.
                 // Retorna -1 si no encuentra caracteres especiales.
                 //Armo nuevo string con string limpio.
 
-                nuevoString+=caracter;
+                nuevoString += caracter;
 
             }
 
         }
-            return nuevoString;
+        return nuevoString;
     }
 
     registrarCensista(nombre, nombreDeUsuario, contrasenia) {
@@ -147,18 +147,17 @@ class Sistema {
         this.registrarCensista("josefina", "josefina02", "Hola1234");
     }
 
-    ingresarCenso(){
-        
+    ingresarCenso() {
+
     }
 }
+let id = 0;
 class Censista {
-    static idCensista = 0;
     constructor() {
-        Censista.idCensista++;
         this.nombre = "";
         this.nombreDeUsuario = "";
         this.contrasenia = "";
-        this.id = Censista.idCensista;
+        this.id = id++;
     }
 }
 
