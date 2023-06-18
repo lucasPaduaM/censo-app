@@ -12,8 +12,8 @@ function inicio() {
     document.getElementById("buscarCensoInvitado").addEventListener("click", formInvitado);
     document.getElementById("modCensoInvitado").addEventListener("click", cargarModificarCenso);
     document.getElementById("ModificarCensista").addEventListener("click", modificarCenso);
-
-    document.getElementById("eliminarCensoInvitado").addEventListener("click", eliminarCenso);
+    document.getElementById("eliminarCensoInvitado").addEventListener("click", deseaEliminarCenso);
+    document.getElementById("btnConfirmarEliminarCenso").addEventListener("click", eliminarCenso);
 
 }
 
@@ -247,9 +247,10 @@ function agregarCenso() {
     resultado.innerHTML = mensaje;
     setTimeout(() => (resultado.innerHTML = ""), 4000);
 }
+
 function formInvitado() {
-    let ciInvitado = document.getElementById("ciInvitado").value;
     let resultado = document.getElementById("mensajesFormInvitado");
+    let ciInvitado = document.getElementById("ciInvitado").value;
     let mensaje = "";
     let respuesta = miSistema.buscarCi(ciInvitado);
 
@@ -257,22 +258,21 @@ function formInvitado() {
         mensaje = "Ingrese una cedula";
     } else if (miSistema.verificarValidacionCenso(ciInvitado)) {
         mensaje = "Usted ya ha sido censado";
+        document.getElementById("btnsFormInvitado").hidden = true;
     } else if (respuesta && !miSistema.verificarValidacionCenso(ciInvitado)) {
         mensaje = "Ya existe un censo ingresado con la respectiva cedula";
         document.getElementById("formAgregarCenso").hidden = true;
-        document.getElementById("buscarCensoInvitado").hidden = true;
         document.getElementById("btnsFormInvitado").hidden = false;
     } else {
         mensaje = "Usted puede realizar el pre censo"
+        document.getElementById("btnsFormInvitado").hidden = true;
         document.getElementById("formAgregarCenso").hidden = false;
     }
     resultado.innerHTML = mensaje;
-    setTimeout(() => (resultado.innerHTML = ""), 4000);
 }
 
 function cargarModificarCenso() {
     document.getElementById("formModificarCenso").hidden = false;
-    let ciInvitado = document.getElementById("ciInvitado").value;
     let censoTemp = miSistema.obtenerCenso(ciInvitado);
     let selectDepto = document.getElementById("selectDepartamentoMod");
     let selectOcu = document.getElementById("selectOcupacionMod");
@@ -290,7 +290,7 @@ function modificarCenso() {
     let nuevoNombre = document.getElementById("nombrePersonaMod").value;
     let nuevoApellido = document.getElementById("apellidoPersonaMod").value;
     let nuevaEdad = Number(document.getElementById("edadPersonaMod").value);
-    let ciAntigua = document.getElementById("ciInvitado").value;
+    let ciInvitado = document.getElementById("ciInvitado").value;
     let nuevaCi = document.getElementById("ciPersonaMod").value;
     let nuevoDepartamento = document.getElementById("selectDepartamentoMod").value;;
     let nuevaOcupacion = document.getElementById("selectOcupacionMod").value;
@@ -337,7 +337,7 @@ function modificarCenso() {
         }
 
         if (cumpleNombre && cumpleApellido && cumpleEdad) {
-            let datos = miSistema.modificarCenso(nuevoNombre, nuevoApellido, nuevaEdad, ciAntigua, ciLimpia, nuevoDepartamento, nuevaOcupacion);
+            let datos = miSistema.modificarCenso(nuevoNombre, nuevoApellido, nuevaEdad, ciInvitado, ciLimpia, nuevoDepartamento, nuevaOcupacion);
             //limpio cajas de texto y muestro mensaje de ingreso. 
             if (datos) {
                 nuevoNombre = document.getElementById("nombrePersonaMod").value = "";
@@ -351,8 +351,19 @@ function modificarCenso() {
     }
     resultado.innerHTML = mensaje;
 }
-
+function deseaEliminarCenso() {
+    document.getElementById("btnConfirmarEliminarCenso").hidden = false;
+}
 
 function eliminarCenso() {
-
+    let ciInvitado = document.getElementById("ciInvitado").value;
+    let respuesta = miSistema.eliminarCenso(ciInvitado);
+    let resultado = document.getElementById("mensajesFormInvitado");
+    let mensajes = "";
+    if (respuesta) {
+        mensajes = "Censo eliminado correctamente";
+    } else {
+        mensajes = "El censo no existe";
+    }
+    resultado.innerHTML = mensajes;
 }
