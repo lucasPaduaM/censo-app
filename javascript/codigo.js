@@ -10,7 +10,7 @@ function inicio() {
     document.getElementById("logOutBtn").addEventListener("click", logout);
     document.getElementById("agregarCensado").addEventListener("click", agregarCenso);
     document.getElementById("buscarCensoInvitado").addEventListener("click", formInvitado);
-    document.getElementById("modCensoInvitado").addEventListener("click", cargarModificarCenso);
+    document.getElementById("btnModCensoInvitado").addEventListener("click", cargarModificarCenso);
     document.getElementById("ModificarCensista").addEventListener("click", modificarCenso);
     document.getElementById("eliminarCensoInvitado").addEventListener("click", deseaEliminarCenso);
     document.getElementById("btnConfirmarEliminarCenso").addEventListener("click", eliminarCenso);
@@ -273,6 +273,7 @@ function formInvitado() {
 
 function cargarModificarCenso() {
     document.getElementById("formModificarCenso").hidden = false;
+    let ciInvitado = document.getElementById("ciInvitado").value;
     let censoTemp = miSistema.obtenerCenso(ciInvitado);
     let selectDepto = document.getElementById("selectDepartamentoMod");
     let selectOcu = document.getElementById("selectOcupacionMod");
