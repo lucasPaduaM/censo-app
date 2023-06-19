@@ -2,6 +2,7 @@ window.addEventListener("load", inicio);
 let miSistema = new Sistema();
 
 function inicio() {
+    listarCensos();
     miSistema.cargarDatos();
     document.getElementById("registrarCensista").addEventListener("click", registrar);
     document.getElementById("loguearCensista").addEventListener("click", login);
@@ -14,7 +15,12 @@ function inicio() {
     document.getElementById("ModificarCensista").addEventListener("click", modificarCenso);
     document.getElementById("eliminarCensoInvitado").addEventListener("click", deseaEliminarCenso);
     document.getElementById("btnConfirmarEliminarCenso").addEventListener("click", eliminarCenso);
-
+    document.querySelector("#btnListarCensos").addEventListener("click", listarCensosPendientes);
+    document.querySelector("#btnBuscarVerificarCenso").addEventListener("click", formBuscarCiValidacion);
+    document.querySelector("#buscarCensoMenuCensista").addEventListener("click", formBuscarCiValidacion);
+    document.querySelector("#btnVerCenso").addEventListener("click", cargarModificarCenso);
+    document.querySelector("#btnAgregarCenso").addEventListener("click", agregarCenso);
+    
 }
 
 
@@ -165,6 +171,9 @@ function ocultarYMostrarObjLogin() {
 }
 
 function agregarCenso() {
+
+    document.querySelector("#formAgregarCenso").style.display = "block";
+
     let nombrePersona = document.getElementById("nombrePersona").value;
     let apellidoPersona = document.getElementById("apellidoPersona").value;
     let edadPersona = Number(document.getElementById("edadPersona").value);
@@ -288,6 +297,7 @@ function cargarModificarCenso() {
 }
 
 function modificarCenso() {
+
     let nuevoNombre = document.getElementById("nombrePersonaMod").value;
     let nuevoApellido = document.getElementById("apellidoPersonaMod").value;
     let nuevaEdad = Number(document.getElementById("edadPersonaMod").value);
@@ -368,3 +378,83 @@ function eliminarCenso() {
     }
     resultado.innerHTML = mensajes;
 }
+
+function listarCensosPendientes(){
+
+let tablaHTML ="<table>";
+
+tablaHTML+="<tr><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th>";
+
+let lista = miSistema.devolverCensosPendientes();
+
+for (let pos=0; pos < lista.length; pos++){
+
+    let usuarioDatos = lista[pos];
+
+    tablaHTML+=`<tr><td>${usuarioDatos.ci}</td><td>${usuarioDatos.nombre}</td><td>${usuarioDatos.apellido}</td><td>${usuarioDatos.edad}</td><td>${usuarioDatos.departamento}</td>`;
+
+}
+
+document.querySelector("#mensajeCensosPendientes").innerHTML = tablaHTML;
+
+document.querySelector("#listaCensosPendientes").style.display = "block";
+
+
+}
+
+
+function formBuscarCiValidacion() {
+    
+    document.querySelector("#formBuscarCiValidacion").style.display="block";
+
+    let resultado = document.getElementById("mensajesFormBuscarCenso");
+    let ciInvitado = document.getElementById("ciBuscar").value;
+    let mensaje = "";
+    let respuesta = miSistema.buscarCi(ciInvitado);
+
+    if (ciInvitado == "") {
+        mensaje = "Ingrese una cedula";
+    } else if (respuesta && miSistema.verificarValidacionCenso(ciInvitado)) {
+        mensaje = "El censo correspondiente al documento ya fue validado!";
+        document.getElementById("formAgregarCenso").hidden = true;
+        document.getElementById("btnsFormBuscarCiValidacion").hidden = true;
+    } else {
+        mensaje = "Censo sin validar!"
+        document.getElementById("btnsFormBuscarCiValidacion").hidden = false;
+        
+    }
+    resultado.innerHTML = mensaje;
+}
+
+
+let estudianArtigas=0;
+let noTrabajanArtigas=0;
+let depOindepArtigas=0;
+let porcentajeTotalArtigas=0;
+
+
+function listarCensos(){
+
+    let tablaHTML ="<table>";
+
+    tablaHTML+="<tr><th>Departamento</th><th>Estudian</th><th>No Trabajan</th><th>Dependientes o independientes</th><th>Porcentaje total de censados</th>";
+    
+    let lista = miSistema.devolverTodosLosDatosCensos();
+    
+    for (let pos=0; pos < lista.length; pos++){
+    
+        let usuarioDatos = lista[pos];
+    
+        tablaHTML+=`<tr><td>${usuarioDatos.departamento}</td><td>${usuarioDatos.nombre}</td><td>${usuarioDatos.apellido}</td><td>${usuarioDatos.edad}</td><td>${usuarioDatos.departamento}</td>`;
+    
+    }
+    
+    document.querySelector("#mensajeEstadisticasCenso").innerHTML = tablaHTML;
+    
+    
+    
+
+}
+
+
+

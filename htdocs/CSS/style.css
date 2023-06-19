@@ -103,6 +103,36 @@ body {
     transition: 0.4s;
 }
 
+
+#navInvitado {
+
+    align-items: center;
+    padding: 10px;
+    height: 45px;
+    display: flex;
+    margin-right: 10px;
+    color: azure;
+    font-size: 18px;
+    text-decoration: none;
+
+}
+
+#navInvitado a {
+
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: azure;
+    transition: 0.4s;
+
+}
+
+#navAdmin a:hover {
+
+    background-color: rgb(212, 129, 194);
+    transition: 0.4s;
+}
+
 .formsEstilos {
 
     width: 250px;

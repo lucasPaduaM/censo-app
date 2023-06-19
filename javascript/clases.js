@@ -5,6 +5,69 @@ class Sistema {
         this.usuarioLogueado = null;
     }
 
+
+
+    devolverTodosLosDatosCensos(){
+
+        let retorno = new Array();
+
+        let dependientesOindependientes=0;
+        let estudian=0;
+        let noTrabajan=0;
+
+        for(let pos=0; pos<this.censos.length;pos++){
+
+            let dato= this.censos[pos];
+
+            
+        if(this.dato.ocupacion=="Estudian"){
+
+            estudian++;
+            
+        }
+
+        if(this.dato.ocupacion=="noTrabaja"){
+
+            noTrabajan++;
+
+        }
+
+
+        if(this.dato.ocupacion=="Dependiente" || this.censos.ocupacion=="Independiente"){
+
+            dependientesOindependientes++;
+        }
+
+
+        }
+        return retorno;
+    }
+
+
+
+    devolverCensosPendientes(){
+
+        let retorno = new Array();
+
+        for(let pos=0; pos<this.censos.length; pos++){
+
+            let usuarioDatos = this.censos[pos];
+
+            if(usuarioDatos.validado===false){
+
+                retorno.push(usuarioDatos);
+                
+            }
+
+        }
+        return retorno;
+    }
+
+
+
+
+
+
     //metodo que registra censista si el mismo no existe
     registrarCensista(nombre, nombreDeUsuario, contrasenia) {
         if (this.buscarCensista(nombreDeUsuario) == undefined) {
@@ -17,6 +80,9 @@ class Sistema {
             return false;
         }
     }
+
+
+
 
     //metodo agregar censo
     agregarCenso(nombre, apellido, edad, ci, departamento, ocupacion, pValidado, idCensista) {
@@ -41,10 +107,11 @@ class Sistema {
         this.registrarCensista("analaura", "ana-12", "Hola1234");
         this.registrarCensista("manuel", "manuu77", "Hola1234");
         this.registrarCensista("ernesto", "erne29", "Hola1234");
+        this.registrarCensista("emanuel", "ema", "Ema123");
 
         //cargar censos
         this.agregarCenso("ferrari", "lamborghini", 25, "55743148", "Montevideo", "Estudiante", true, this.obtenerCensistaRandom());
-        this.agregarCenso("joaco", "rodriguez", 55, "44319343", "Montevideo", "Estudiante", false, this.obtenerCensistaRandom());
+        this.agregarCenso("joaco", "rodriguez", 55, "44319343", "Montevideo", "Estudiante", true, this.obtenerCensistaRandom());
         this.agregarCenso("pepe", "argento", 65, "55563148", "Montevideo", "Estudiante", false, this.obtenerCensistaRandom());
         this.agregarCenso("ricardo", "fort", 25, "55710148", "Montevideo", "Estudiante", false, this.obtenerCensistaRandom());
         this.agregarCenso("marcelo", "tinelli", 25, "12431489", "Montevideo", "Estudiante", false, this.obtenerCensistaRandom());

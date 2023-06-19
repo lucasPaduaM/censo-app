@@ -19,18 +19,38 @@
 
     <div id="cabeza">
 
-        <img id="imgLogo" src="img/CENSO-LOGO.png" alt="LOGO">
+        <a href="index.html"><img id="imgLogo" src="img/CENSO-LOGO.png" alt="LOGO"></a>
 
         <div id="menusCabeza">
+
+            <!--NAV ADMIN-->
+            <div id="navAdmin">
+            <a id="logOutBtn" style="display: none;">LOG OUT</a>
+            </div>
+
+            <!--NAV INVITADO-->
+            <div id="navInvitado">
             <a id="formLoginBtn">LOG IN</a>
             <a id="formRegistroBtn">REGISTRO</a>
             <a id="logOutBtn" style="display: none;">LOG OUT</a>
+            </div>
+            
+            </div>
+
         </div>
 
+        
+
     </div>
-    <div id="contenedorNav">
+    <div id="contenedorNav">    
         <nav id="barraNav">
-        </nav>
+    
+            <a href="index.html">INICIO</a>
+            <a href="#">FORMULARIO</a>
+    
+    </nav>
+    
+    </div>
     </div>
 
     <div class="formsEstilos" id="formRegistro" hidden>
@@ -81,11 +101,13 @@
         <center>
             <h1 id="nombreCensistaH1">Censista: </h1>
             <br>
-            <input class="btnsForms" type="button" value="Ver censos pendientes por validar">
+            <input class="btnsForms" id="btnListarCensos" type="button" value="Ver censos pendientes por validar">
             <br>
             <input class="btnsForms" id="btnAgregarCenso" type="button" value="Ingresar censo">
             <br>
             <input class="btnsForms" type="button" value="Cambiar censista a cargo de censo">
+            <br>
+            <input class="btnsForms" id="btnBuscarVerificarCenso" type="button" value="Buscar y verificar censo">
         </center>
     </div>
 
@@ -130,6 +152,7 @@
                 <option value="Dependiente">Dependiente</option>
                 <option value="Independiente">Independiente</option>
                 <option value="Estudiante">Estudiante</option>
+                <option value="noTrabaja">No trabaja</option>
 
             </select><br>
 
@@ -181,6 +204,7 @@
                 <option value="Dependiente">Dependiente</option>
                 <option value="Independiente">Independiente</option>
                 <option value="Estudiante">Estudiante</option>
+                <option value="noTrabaja">No trabaja</option>
 
             </select><br>
 
@@ -190,6 +214,24 @@
         </center>
     </div>
 
+
+
+
+
+    <div class="formsEstilos" id="formBuscarCiValidacion" style="display: none;">
+        <center>
+            <h1>Persona a validar</h1>
+            <br>
+            <input class="txtEstilos" type="text" id="ciBuscar" placeholder="Documento..."><br>
+            <input class="btnsForms" type="button" id="buscarCensoMenuCensista" value="Buscar">
+            <br>
+            <p class="estilosMensajes" id="mensajesFormBuscarCenso"></p>
+            <div id="btnsFormBuscarCiValidacion" hidden>
+            <input id="btnVerCenso" class="btnsForms" type="button" value="Ver censo">
+                <br>
+            </div>
+        </center>
+    </div>
 
     <div id="contenedor-banner">
         <img src="img/BANNER.png" id="imgBanner">
@@ -225,32 +267,19 @@
             </tr>
         </table>
     </div>
-    <!--<div id="form-login">-->
-    <!--FORMULARIO DE LOGIN-->
-    <!--   <h1>FORMULARIO <br> LOGIN</h1><br>
-            
-            <input type="text" id="txtLogin" placeholder="Ingrese nombre de usuario..."><br>
-            <br>
-            <input type="text" id="txtLogin" placeholder="Ingrese clave..."><br>
-            <br>
-            <input type="button" id="ingresarLogin" value="Ingresar">
-    </div>
+  
+<div id="listaCensosPendientes" style="display: none;">
+
+<p id="mensajeCensosPendientes"></p>
+
+</div>
+
+<div id="listaEstadisticasCensos">
+
+    <p id="mensajeEstadisticasCenso"></p>
     
-    <div id="form-registro">-->
-    <!--FORMULARIO DE REGISTRO-->
-    <!-- <h1>FORMULARIO <br> REGISTRO</h1><br>
-            
-            <input type="text" id="txtRegistro" placeholder="Ingrese nombre..."><br>
-            <br>
-            <input type="text" id="txtRegistro" placeholder="Ingrese nombre de usuario..."><br>
-            <br>
-            <input type="text" id="txtRegistro" placeholder="Ingrese clave..."><br>
-            <br>
-            <input type="button" id="ingresarRegistro" value="Registrarse">
-    </div>
-    
-    <div id="tabla-listas">-->
-    <!--LISTAS DEL INDEX-->
+
+  </div>
     </div>
 
     </div>
