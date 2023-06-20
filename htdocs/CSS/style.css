@@ -339,7 +339,7 @@ footer {
 
 #encabezadoTabla {
     position: absolute;
-    top: 40%;
+    top: 30%;
     left: 30%;
     transform: translateX(-50%);
     z-index: 2;
@@ -372,4 +372,15 @@ th,
 td {
     border: 1px solid black;
     text-align: center;
+}
+
+.formsEstilosValidar{
+
+    width: 500px;
+    background: linear-gradient(to bottom right, rgb(158, 158, 202), pink);
+    padding: 30px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 4px;
+
 }

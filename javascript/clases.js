@@ -6,41 +6,87 @@ class Sistema {
     }
 
 
+   devolverCantidadDepartamentos(){
 
-    devolverTodosLosDatosCensos(){
+    let departamentosTotal = [];
 
-        let retorno = new Array();
+    for(let pos=0; pos < this.censos.length;pos++){
 
-        let dependientesOindependientes=0;
+       let datoCenso = this.censos[pos];
+
+        if(datoCenso.validado){
+
+            if(!departamentosTotal.includes(datoCenso.departamento)){
+
+                departamentosTotal.push(datoCenso.departamento);
+
+            }
+
+        }
+
+    }
+    return departamentosTotal;
+   }
+
+    devolverOcupacionEstudian(nomDepartamento){
+
         let estudian=0;
-        let noTrabajan=0;
 
         for(let pos=0; pos<this.censos.length;pos++){
 
-            let dato= this.censos[pos];
+            let usuarioDatos= this.censos[pos];
 
-            
-        if(this.dato.ocupacion=="Estudian"){
+        if(usuarioDatos.departamento==nomDepartamento){
+
+        if(usuarioDatos.ocupacion=="Estudiante"){
 
             estudian++;
             
         }
+        }
+    }
+        return estudian;
+    }
 
-        if(this.dato.ocupacion=="noTrabaja"){
 
-            noTrabajan++;
+    devolverOcupacionNoTrabaja(nomDepartamento){
 
+        let noTrabaja=0;
+        
+        for(let pos=0; pos<this.censos.length;pos++){
+
+            let usuarioDatos= this.censos[pos];
+        
+        if(usuarioDatos.departamento==nomDepartamento)
+
+        if(usuarioDatos.ocupacion=="noTrabaja"){
+
+            noTrabaja++;
+            
+        }
         }
 
+        return noTrabaja;
+    }
 
-        if(this.dato.ocupacion=="Dependiente" || this.censos.ocupacion=="Independiente"){
+    devolverOcupacionDependienteOindependiente(nomDepartamento){
 
-            dependientesOindependientes++;
+        let dependienteOindependiente=0;
+        
+        for(let pos=0; pos<this.censos.length;pos++){
+
+            let usuarioDatos= this.censos[pos];
+
+        if(usuarioDatos.departamento==nomDepartamento)
+
+        if(usuarioDatos.ocupacion=="Dependiente" || usuarioDatos.ocupacion=="Independiente"){
+
+            dependienteOindependiente++;
+            
+        }
         }
 
-
-        }
-        return retorno;
+        return dependienteOindependiente;
     }
 
 
@@ -64,6 +110,65 @@ class Sistema {
     }
 
 
+
+    devolverCantidadCensosValidados(){
+
+        let total = 0;
+
+        for(let pos=0; pos<this.censos.length; pos++){
+
+            let usuarioDatos = this.censos[pos];
+
+            if(usuarioDatos.validado){
+
+                total++;
+                
+            }
+
+        }
+        return total;
+    }
+
+
+    devolverCantidadCensosDepartamentos(nomDepartamento){
+
+        let total = 0;
+
+        for(let pos=0; pos<this.censos.length; pos++){
+
+            let usuarioDatos = this.censos[pos];
+
+            if(usuarioDatos.validado){
+
+                if(usuarioDatos.departamento==nomDepartamento){
+
+                    total++
+
+                }
+
+            }
+
+        }
+        return total;
+    }
+
+    devolverCensosValidados(){
+
+        let retorno = new Array();
+
+        for(let pos=0; pos<this.censos.length; pos++){
+
+            let usuarioDatos = this.censos[pos];
+
+            if(usuarioDatos.validado===true){
+
+                retorno.push(usuarioDatos);
+                
+            }
+
+        }
+        return retorno;
+    }
 
 
 
@@ -115,7 +220,17 @@ class Sistema {
         this.agregarCenso("pepe", "argento", 65, "55563148", "Montevideo", "Estudiante", false, this.obtenerCensistaRandom());
         this.agregarCenso("ricardo", "fort", 25, "55710148", "Montevideo", "Estudiante", false, this.obtenerCensistaRandom());
         this.agregarCenso("marcelo", "tinelli", 25, "12431489", "Montevideo", "Estudiante", false, this.obtenerCensistaRandom());
-
+        this.agregarCenso("agustin", "ferreira", 29, "563894768", "Artigas", "noTrabaja", true, this.obtenerCensistaRandom());
+        this.agregarCenso("luis", "nuñez", 19, "582364298", "Rocha", "Dependiente", true, this.obtenerCensistaRandom());
+        this.agregarCenso("karen", "suarez", 39, "384602980", "Maldonado", "Independiente", true, this.obtenerCensistaRandom());
+        this.agregarCenso("julieta", "ferrada", 72, "264847309", "San Jose", "noTrabaja", true, this.obtenerCensistaRandom());
+        this.agregarCenso("alfonso", "kurl", 18, "523284670", "Artigas", "Estudiante", true, this.obtenerCensistaRandom());
+        this.agregarCenso("nicolas", "lemos", 20, "532895647", "Salto", "noTrabaja", true, this.obtenerCensistaRandom());
+        this.agregarCenso("martin", "cuello", 19, "563289467", "Salto", "Independiente", false, this.obtenerCensistaRandom());
+        this.agregarCenso("mateo", "sosa", 18, "538749368", "Salto", "Dependiente", true, this.obtenerCensistaRandom());
+        this.agregarCenso("rodolfo", "añuña", 25, "145394520", "Salto", "noTrabaja", true, this.obtenerCensistaRandom());
+        this.agregarCenso("hugo", "gonzales", 28, "458239049", "Montevideo", "noTrabaja", false, this.obtenerCensistaRandom());
+        this.agregarCenso("ezequiel", "gomez", 28, "57454432", "Maldonado", "Estudiante", true, this.obtenerCensistaRandom());
     }
 
     //metodo que loguea censista existente
@@ -250,4 +365,8 @@ class CensoPersona {
         this.validado = pValidado;
         this.idCensista = cId;
     }
+
+
+
 }
+

@@ -2,7 +2,6 @@ window.addEventListener("load", inicio);
 let miSistema = new Sistema();
 
 function inicio() {
-    listarCensos();
     miSistema.cargarDatos();
     document.getElementById("registrarCensista").addEventListener("click", registrar);
     document.getElementById("loguearCensista").addEventListener("click", login);
@@ -18,9 +17,9 @@ function inicio() {
     document.querySelector("#btnListarCensos").addEventListener("click", listarCensosPendientes);
     document.querySelector("#btnBuscarVerificarCenso").addEventListener("click", formBuscarCiValidacion);
     document.querySelector("#buscarCensoMenuCensista").addEventListener("click", formBuscarCiValidacion);
-    document.querySelector("#btnVerCenso").addEventListener("click", cargarModificarCenso);
+    document.querySelector("#btnVerCenso").addEventListener("click", formVerificarCenso);
     document.querySelector("#btnAgregarCenso").addEventListener("click", agregarCenso);
-    
+    document.querySelector("#verEstadisticas").addEventListener("click", listarEstadisticas);
 }
 
 
@@ -419,6 +418,7 @@ function formBuscarCiValidacion() {
         document.getElementById("formAgregarCenso").hidden = true;
         document.getElementById("btnsFormBuscarCiValidacion").hidden = true;
     } else {
+       
         mensaje = "Censo sin validar!"
         document.getElementById("btnsFormBuscarCiValidacion").hidden = false;
         
@@ -427,34 +427,51 @@ function formBuscarCiValidacion() {
 }
 
 
-let estudianArtigas=0;
-let noTrabajanArtigas=0;
-let depOindepArtigas=0;
-let porcentajeTotalArtigas=0;
+function listarEstadisticas(){
 
-
-function listarCensos(){
-
-    let tablaHTML ="<table>";
+    let tablaHTML =`<table id="tabla-estadisticasIndex">`;
 
     tablaHTML+="<tr><th>Departamento</th><th>Estudian</th><th>No Trabajan</th><th>Dependientes o independientes</th><th>Porcentaje total de censados</th>";
     
-    let lista = miSistema.devolverTodosLosDatosCensos();
+    let listaDepartamentos = miSistema.devolverCantidadDepartamentos();
+
     
-    for (let pos=0; pos < lista.length; pos++){
-    
-        let usuarioDatos = lista[pos];
-    
-        tablaHTML+=`<tr><td>${usuarioDatos.departamento}</td><td>${usuarioDatos.nombre}</td><td>${usuarioDatos.apellido}</td><td>${usuarioDatos.edad}</td><td>${usuarioDatos.departamento}</td>`;
+
+    for (let pos=0; pos < listaDepartamentos.length; pos++){
+
+        let unDepartamento = listaDepartamentos[pos];
+
+        let totalCensoDepto= miSistema.devolverCantidadCensosDepartamentos(unDepartamento);
+
+        let totalCensosApp= miSistema.devolverCantidadCensosValidados();
+
+        let porcentaje =totalCensoDepto*100/totalCensosApp;
+
+        tablaHTML+=`<tr><td>${unDepartamento}</td><td>${miSistema.devolverOcupacionEstudian(unDepartamento)}</td><td>${miSistema.devolverOcupacionNoTrabaja(unDepartamento)}</td><td>${miSistema.devolverOcupacionDependienteOindependiente(unDepartamento)}</td><td>${porcentaje.toFixed(2)}</td>`;
     
     }
     
     document.querySelector("#mensajeEstadisticasCenso").innerHTML = tablaHTML;
-    
-    
-    
 
 }
 
+
+function formVerificarCenso(cedula){
+    
+
+    document.querySelector("#formVerificarCenso").style.display="block";
+
+    let tablaHTML ="<table>";
+
+    let posCenso= miSistema.obtenerCenso(cedula);
+
+    let datosCenso= miSistema.censos[posCenso];
+
+    tablaHTML+="<tr><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Ocupacion</th><th>Departamento</th>";
+
+    tablaHTML+=`<tr><td>${datosCenso.ci}</td><td>${datosCenso.nombre}</td><td>${datosCenso.apellido}</td><td>${datosCenso.edad}</td><td>${datosCenso.ocupacion}</td><td>${datosCenso.departamento}</td>`;
+
+    document.querySelector("#mensajeDatosCenso").innerHTML = tablaHTML;
+}
 
 
