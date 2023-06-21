@@ -6,6 +6,27 @@ class Sistema {
     }
 
 
+    obtenerNombreCensista(idCensista){
+
+        let nombreCensista="";
+        let encontrado = false;
+
+        for(let pos=0;pos < this.usuarios.length; pos++){
+
+            let datoCensista = this.usuarios[pos];
+
+            if(idCensista===datoCensista.id && !encontrado){
+
+                encontrado=true;
+
+                 nombreCensista+= this.usuarios[pos].nombre;
+
+            }
+
+        }
+        return nombreCensista;
+    }
+
    devolverCantidadDepartamentos(){
 
     let departamentosTotal = [];
@@ -272,6 +293,22 @@ class Sistema {
                 return censoTemp;
             }
         }
+    }
+
+    obtenerTodoCensista() {
+
+        let retorno = new Array();
+
+        for (let pos = 0; pos < this.usuarios.length; pos++) {
+
+                let datoCenso = this.usuarios[pos];
+
+                retorno.push(datoCenso);
+
+                
+            
+        }
+        return retorno;
     }
 
     //metodo que busca censista por nombre de usuario y retorna un booleano dependiendo de si este existe o no

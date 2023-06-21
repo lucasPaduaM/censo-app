@@ -20,6 +20,9 @@ function inicio() {
     document.querySelector("#btnVerCenso").addEventListener("click", formVerificarCenso);
     document.querySelector("#btnAgregarCenso").addEventListener("click", agregarCenso);
     document.querySelector("#verEstadisticas").addEventListener("click", listarEstadisticas);
+    document.querySelector("#btnCambiarCensista").addEventListener("click", cargarDatoSelectCensistas);
+    document.querySelector("#btnDestinoMenuModificar").addEventListener("click", listarDatosParaModificarCensista);
+    document.querySelector("#btnDestinoCambiarCensista").addEventListener("click", cambiarCensistaDeCenso);
 }
 
 
@@ -382,15 +385,17 @@ function listarCensosPendientes(){
 
 let tablaHTML ="<table>";
 
-tablaHTML+="<tr><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th>";
+tablaHTML+="<tr><th>N° Censo</th><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th><th>Censista a cargo</th>";
 
 let lista = miSistema.devolverCensosPendientes();
 
 for (let pos=0; pos < lista.length; pos++){
 
+    let idCensista= lista[pos].idCensista;
+
     let usuarioDatos = lista[pos];
 
-    tablaHTML+=`<tr><td>${usuarioDatos.ci}</td><td>${usuarioDatos.nombre}</td><td>${usuarioDatos.apellido}</td><td>${usuarioDatos.edad}</td><td>${usuarioDatos.departamento}</td>`;
+    tablaHTML+=`<tr><td>${pos}</td><td>${usuarioDatos.ci}</td><td>${usuarioDatos.nombre}</td><td>${usuarioDatos.apellido}</td><td>${usuarioDatos.edad}</td><td>${usuarioDatos.departamento}</td><td>${miSistema.obtenerNombreCensista(idCensista)}</td>`;
 
 }
 
@@ -475,3 +480,82 @@ function formVerificarCenso(cedula){
 }
 
 
+function comboDesplegableParaCambio(){
+
+let comboCensista = "<select>";
+
+let datosCensista = miSistema.obtenerTodoCensista();
+
+//iteracion para comboCensista
+for(let pos=0; pos<datosCensista.length;pos++){
+
+let datoPos = datosCensista[pos];
+
+comboCensista += `<option value="${datoPos.id}">${datoPos.nombre}</option>`;
+
+}
+document.querySelector("#mensajeCambiarDeCenso").innerHTML= comboCensista;
+
+return comboCensista;
+}
+
+
+function listarDatosParaModificarCensista(){
+
+    let tablaHTML ="<table>";
+
+tablaHTML+="<tr><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th>";
+
+let lista = miSistema.devolverCensoSeleccionado();
+
+for (let pos=0; pos < lista.length; pos++){
+
+    let idCensista= lista[pos].idCensista;
+
+    let usuarioDato = lista[pos];
+
+    tablaHTML+=`<tr><td>${usuarioDato.ci}</td><td>${usuarioDato.nombre}</td><td>${usuarioDato.apellido}</td><td>${usuarioDato.edad}</td><td>${usuarioDato.departamento}</td>`;
+
+}
+
+document.querySelector("#mensajeCensosPendientes").innerHTML = tablaHTML;
+
+}
+
+
+function cambiarCensistaDeCenso(){
+
+let datosDelCenso = document.querySelector("#selListaCensos").value;
+
+cargarDatoSelectCensistas("selListaCensos");
+            let censoTemp = miSistema.obtenerCenso(); 
+            let posCenso = miSistema.obtenerCenso(censoTemp.ci);
+            document.querySelector("#selListaCensos").selectedIndex = posCenso;
+            
+}
+
+
+
+
+function cargarDatoSelectCensistas() {
+
+    listarCensosPendientes();
+
+    let miSelector = document.querySelector("#selListaCensos");
+
+    miSelector.innerHTML = "";
+
+    let datosPersona = miSistema.devolverCensosPendientes();
+
+    for(let pos=0; pos < datosPersona.length; pos++){
+    
+    let unCenso= datosPersona[pos];
+
+    miSelector.innerHTML += `<option value="${pos}">N°${pos} | ${unCenso.nombre}</option>`
+
+
+
+    
+    }
+
+}

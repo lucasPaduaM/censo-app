@@ -97,7 +97,7 @@
         </center>
     </div>
 
-    <div class="formsEstilos" id="censistaMenu" style="display: none;">
+    <div class="formsEstilos" id="censistaMenu">
         <center>
             <h1 id="nombreCensistaH1">Censista: </h1>
             <br>
@@ -105,7 +105,7 @@
             <br>
             <input class="btnsForms" id="btnAgregarCenso" type="button" value="Ingresar censo">
             <br>
-            <input class="btnsForms" type="button" value="Cambiar censista a cargo de censo">
+            <input class="btnsForms" id="btnCambiarCensista" type="button" value="Cambiar censista a cargo de censo">
             <br>
             <input class="btnsForms" id="btnBuscarVerificarCenso" type="button" value="Buscar y verificar censo">
         </center>
@@ -242,18 +242,14 @@
         </center>
     </div>
 
-    <div id="contenedor-banner">
+    <div id="contenedor-banner" style="display: none;">
         <img src="img/BANNER.png" id="imgBanner">
             <h2 id="encabezadoTabla">Estadísticas</h2>
        
   
-<div id="listaCensosPendientes" style="display: none;">
 
-<p id="mensajeCensosPendientes"></p>
 
-</div>
-
-<div id="listaEstadisticasCensos">
+<div id="listaEstadisticasCensos" style="display: none;">
 <input type="button"  class="btnsForms" id="verEstadisticas" value="ver Estadísticas">
     <p id="mensajeEstadisticasCenso"></p>
     
@@ -262,7 +258,24 @@
     </div>
 
     </div>
+    <div id="mnuCambiarDeCensista">
+        <input type="button"  class="btnsForms" id="btnDestinoCambiarCensista" value="Guardar">
+            <p id="mensajeCambiarDeCenso"></p>
+            
+        
+          </div>
+          <div id="listaCensosPendientes" >
 
+            <p id="mensajeCensosPendientes"></p>
+
+            <label for="selListaCensos">Buscar el censo:</label><br>
+            <select class="btnsForms" id="selListaCensos">
+                
+            </select><br>
+
+            <input type="button" class="btnsForms" id="btnDestinoMenuModificar" value="Seleccionar">
+
+            </div>
 </body>
 <footer>
     <h3>PROGRAMACION 1</h3>
