@@ -14,14 +14,14 @@ function inicio() {
     document.getElementById("ModificarCensista").addEventListener("click", modificarCenso);
     document.getElementById("eliminarCensoInvitado").addEventListener("click", deseaEliminarCenso);
     document.getElementById("btnConfirmarEliminarCenso").addEventListener("click", eliminarCenso);
-    document.querySelector("#btnListarCensos").addEventListener("click", listarCensosPendientes);
+    document.querySelector("#btnListarCensos").addEventListener("click", listarCensosValidos);
     document.querySelector("#btnBuscarVerificarCenso").addEventListener("click", formBuscarCiValidacion);
     document.querySelector("#buscarCensoMenuCensista").addEventListener("click", formBuscarCiValidacion);
     document.querySelector("#btnVerCenso").addEventListener("click", formVerificarCenso);
     document.querySelector("#btnAgregarCenso").addEventListener("click", agregarCenso);
     document.querySelector("#verEstadisticas").addEventListener("click", listarEstadisticas);
     document.querySelector("#btnCambiarCensista").addEventListener("click", cargarDatoSelectCensistas);
-    document.querySelector("#btnDestinoMenuModificar").addEventListener("click", listarDatosParaModificarCensista);
+    document.querySelector("#btnDestinoMenuModificar").addEventListener("click", cargarDatoSelectUsuarios);
     document.querySelector("#btnDestinoCambiarCensista").addEventListener("click", cambiarCensistaDeCenso);
 }
 
@@ -381,13 +381,13 @@ function eliminarCenso() {
     resultado.innerHTML = mensajes;
 }
 
-function listarCensosPendientes(){
+function listarCensosValidos(){
 
 let tablaHTML ="<table>";
 
 tablaHTML+="<tr><th>N° Censo</th><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th><th>Censista a cargo</th>";
 
-let lista = miSistema.devolverCensosPendientes();
+let lista = miSistema.devolverCensosValidados();
 
 for (let pos=0; pos < lista.length; pos++){
 
@@ -502,6 +502,10 @@ return comboCensista;
 
 function listarDatosParaModificarCensista(){
 
+    document.querySelector("#mnuCambiarDeCensista").style.display="block";
+
+    document.querySelector("#listaCensosPendientes").style.display="none";
+
     let tablaHTML ="<table>";
 
 tablaHTML+="<tr><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th>";
@@ -518,12 +522,13 @@ for (let pos=0; pos < lista.length; pos++){
 
 }
 
-document.querySelector("#mensajeCensosPendientes").innerHTML = tablaHTML;
+document.querySelector("#mensajeCambiarDeCenso").innerHTML = tablaHTML;
 
 }
 
 
 function cambiarCensistaDeCenso(){
+
 
 let datosDelCenso = document.querySelector("#selListaCensos").value;
 
@@ -539,13 +544,13 @@ cargarDatoSelectCensistas("selListaCensos");
 
 function cargarDatoSelectCensistas() {
 
-    listarCensosPendientes();
+    listarCensosValidos();
 
     let miSelector = document.querySelector("#selListaCensos");
 
     miSelector.innerHTML = "";
 
-    let datosPersona = miSistema.devolverCensosPendientes();
+    let datosPersona = miSistema.devolverCensosValidados();
 
     for(let pos=0; pos < datosPersona.length; pos++){
     
@@ -557,5 +562,32 @@ function cargarDatoSelectCensistas() {
 
     
     }
+
+    
+
+}
+
+function cargarDatoSelectUsuarios() {
+
+    listarDatosParaModificarCensista();
+
+    let miSelector = document.querySelector("#selListaUsuarios");
+
+    miSelector.innerHTML = "";
+
+    let datosUsuarios = miSistema.usuarios;
+
+    for(let pos=0; pos < datosUsuarios.length; pos++){
+    
+    let unUsuario= datosUsuarios[pos];
+
+    miSelector.innerHTML += `<option value="${pos}">N°${pos} | ${unUsuario.nombre}</option>`
+
+
+
+    
+    }
+
+    
 
 }

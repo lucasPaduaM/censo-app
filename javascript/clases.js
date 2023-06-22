@@ -6,6 +6,17 @@ class Sistema {
     }
 
 
+    cambiarCensista(idCensistaAntiguo, idCensistaNuevo) {
+        let actualizado = false;
+        for (let i = 0; i < this.censos.length && !actualizado; i++) {
+            if (this.censos[i].idCensista===idCensistaAntiguo) {
+                this.censos[i].idCensista = idCensistaNuevo;
+                actualizado = true;
+            }
+        }
+        return actualizado;
+    }
+
     obtenerNombreCensista(idCensista){
 
         let nombreCensista="";
@@ -120,7 +131,7 @@ class Sistema {
 
             let usuarioDatos = this.censos[pos];
 
-            if(usuarioDatos.validado===false){
+            if(usuarioDatos.validado){
 
                 retorno.push(usuarioDatos);
                 
@@ -129,7 +140,6 @@ class Sistema {
         }
         return retorno;
     }
-
 
 
     devolverCantidadCensosValidados(){
