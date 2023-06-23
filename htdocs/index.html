@@ -18,38 +18,26 @@
 <body style="background-color:rgb(129, 114, 114)">
 
     <div id="cabeza">
-
         <a href="index.html"><img id="imgLogo" src="img/CENSO-LOGO.png" alt="LOGO"></a>
-
         <div id="menusCabeza">
-
             <!--NAV ADMIN-->
             <div id="navAdmin">
-            <a id="logOutBtn" style="display: none;">LOG OUT</a>
+                <a id="logOutBtn" style="display: none;">LOG OUT</a>
             </div>
-
             <!--NAV INVITADO-->
             <div id="navInvitado">
-            <a id="formLoginBtn">LOG IN</a>
-            <a id="formRegistroBtn">REGISTRO</a>
-            <a id="logOutBtn" style="display: none;">LOG OUT</a>
+                <a id="formLoginBtn">LOG IN</a>
+                <a id="formRegistroBtn">REGISTRO</a>
+                <a id="logOutBtn" style="display: none;">LOG OUT</a>
             </div>
-            
-            </div>
-
         </div>
-
-        
+    </div>
 
     </div>
-    <div id="contenedorNav">    
+    <div id="contenedorNav">
         <nav id="barraNav">
-    
             <a href="index.html">INICIO</a>
-            <a href="#">FORMULARIO</a>
-    
-    </nav>
-    
+        </nav>
     </div>
     </div>
 
@@ -97,17 +85,19 @@
         </center>
     </div>
 
-    <div class="formsEstilos" id="censistaMenu">
+    <div class="formsEstilos" id="censistaMenu" hidden>
         <center>
             <h1 id="nombreCensistaH1">Censista: </h1>
             <br>
-            <input class="btnsForms" id="btnListarCensos" type="button" value="Ver censos pendientes por validar">
+            <input class="btnsForms" id="btnMostrarListarCensos" type="button"
+                value="Ver censos pendientes por validar">
             <br>
-            <input class="btnsForms" id="btnAgregarCenso" type="button" value="Ingresar censo">
+            <input class="btnsForms" id="btnMostrarAgregarCenso" type="button" value="Ingresar censo">
             <br>
-            <input class="btnsForms" id="btnCambiarCensista" type="button" value="Cambiar censista a cargo de censo">
+            <input class="btnsForms" id="btnMostrarCambiarCensista" type="button"
+                value="Cambiar censista a cargo de censo">
             <br>
-            <input class="btnsForms" id="btnBuscarVerificarCenso" type="button" value="Buscar y verificar censo">
+            <input class="btnsForms" id="btnMostrarBuscarVerificarCenso" type="button" value="Buscar y verificar censo">
         </center>
     </div>
 
@@ -162,7 +152,7 @@
         </center>
     </div>
 
-
+    <br>
     <div class="formsEstilos" id="formModificarCenso" hidden>
         <center>
             <h1>Modificar Censo</h1>
@@ -214,20 +204,17 @@
         </center>
     </div>
 
-    <div class="formsEstilosValidar" id="formVerificarCenso" hidden>
+    <br>
+    <div class="formsEstilosValidar" id="" hidden>
         <center>
             <h1>Verificar Datos Del Censo</h1>
             <p id="mensajeDatosCenso"></p>
-            <input class="btnsForms" type="button" id="validarCenso" value="Validar">
-            
-            <input class="btnsForms" type="button" id="formModificarCenso" value="Modificar">
-            
+            <input class="btnsForms" type="button" id="" value="Validar">
+            <br>
         </center>
     </div>
-
-
-
-    <div class="formsEstilosValidar" id="formBuscarCiValidacion" style="display: none;">
+    <br>
+    <div class="formsEstilosValidar" id="formBuscarCiValidacion" hidden>
         <center>
             <h1>Persona a validar</h1>
             <br>
@@ -236,54 +223,82 @@
             <br>
             <p class="estilosMensajes" id="mensajesFormBuscarCenso"></p>
             <div id="btnsFormBuscarCiValidacion" hidden>
-            <input id="btnVerCenso" class="btnsForms" type="button" value="Ver censo">
+                <input id="btnVerCenso" class="btnsForms" type="button" value="Ver censo">
                 <br>
             </div>
         </center>
+        <div id="verCensoCensista" hidden>
+            <center>
+                <label>Nombre: </label><label id="nombreCensado"></label>
+                <br>
+                <label>Apellido: </label><label id="apellidoCensado"></label>
+                <br>
+                <label>Edad: </label><label id="edadCensado"></label>
+                <br>
+                <label>Cedula: </label><label id="cedulaCensado"></label>
+                <br>
+                <label>Departamento: </label><label id="deptoCensado"></label>
+                <br>
+                <label>Ocupacion: </label><label id="ocupCensado"></label>
+                <br>
+
+                <input type="button" class="btnsForms" id="validarCenso" value="Validar">
+            </center>
+        </div>
     </div>
+    <br>
+    <div class="formsEstilos" id="cambiarCensoCensista" hidden>
+        <center>
+            <h2>Cambiar censista a cargo de censo</h2>
+            <br>
+            <select class="txtEstilos" name="Censos pendientes por validar" id="selectCensosPendientes">
+            </select>
+            <br>
+            <h4>Seleccione un censo a re asignar</h4>
+            <br>
+            <label>Nombre: </label><label id="nombreCensado2"></label>
+            <br>
+            <label>Apellido: </label><label id="apellidoCensado2"></label>
+            <br>
+            <label>Edad: </label><label id="edadCensado2"></label>
+            <br>
+            <label>Cedula: </label><label id="cedulaCensado2"></label>
+            <br>
+            <label>Departamento: </label><label id="deptoCensado2"></label>
+            <br>
+            <label>Ocupacion: </label><label id="ocupCensado2"></label>
+            <br>
+            <input class="btnsForms" type="button" value="Seleccionar censo" id="seleccionarCenso">
+            <br>
 
-    <div id="contenedor-banner" style="display: none;">
-        <img src="img/BANNER.png" id="imgBanner">
-            <h2 id="encabezadoTabla">Estadísticas</h2>
-       
-  
+            <div id="divElegirCensista" hidden>
+                <h4>Seleccione el censista</h4>
+                <select class="txtEstilos" name="Censistas" id="selectCensistas">
 
-
-<div id="listaEstadisticasCensos" style="display: none;">
-<input type="button"  class="btnsForms" id="verEstadisticas" value="ver Estadísticas">
-    <p id="mensajeEstadisticasCenso"></p>
-    
-
-  </div>
-    </div>
-
-    </div>
-    <div id="mnuCambiarDeCensista" style="display: none;">
-        <label for="selListaUsuarios">Modificar Censista:</label>
-        <select class="btnsForms" id="selListaUsuarios">
-        
-        </select><br>
-        
-        <input type="button"  class="btnsForms" id="btnDestinoCambiarCensista" value="Guardar">
-            <p id="mensajeCambiarDeCenso"></p>
-            
-        
-          </div>
-
-
-          
-          <div id="listaCensosPendientes" >
-
-            <p id="mensajeCensosPendientes"></p>
-
-            <label for="selListaCensos">Buscar el censo:</label><br>
-            <select class="btnsForms" id="selListaCensos">
-                
-            </select><br>
-
-            <input type="button" class="btnsForms" id="btnDestinoMenuModificar" value="Seleccionar">
-
+                </select>
+                <br>
+                <input class="btnsForms" type="button" value="Asignar" id="asignarNuevoCensista">
+                <br>
+                <p id="mensajesCambiarCensoCensista"></p>
             </div>
+        </center>
+    </div>
+    <br>
+    <div id="verCensosPendientes" hidden>
+        <center>
+            <p id="mensajeCensosPendientes"></p>
+        </center>
+    </div>
+    <br>
+    <div id="contenedor-banner" style="display: block;">
+        <img src="img/BANNER.png" id="imgBanner">
+        <h2 id="encabezadoTabla">Estadísticas</h2>
+        <div id="listaEstadisticasCensos" style="display: block;">
+            <input type="button" class="btnsForms" id="verEstadisticas" value="Ver Estadísticas">
+            <p id="mensajeEstadisticasCenso"></p>
+        </div>
+    </div>
+    <br>
 </body>
 <footer>
     <h3>PROGRAMACION 1</h3>
@@ -291,9 +306,5 @@
     <br>
     <h4>Emanuel Gomez - Lucas Padua</h4>
 </footer>
-
-</html>
-
-</body>
 
 </html>

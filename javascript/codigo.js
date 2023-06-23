@@ -3,28 +3,70 @@ let miSistema = new Sistema();
 
 function inicio() {
     miSistema.cargarDatos();
-    document.getElementById("registrarCensista").addEventListener("click", registrar);
-    document.getElementById("loguearCensista").addEventListener("click", login);
+    //invitado
     document.getElementById("formRegistroBtn").addEventListener("click", ocultarMostrarRegistro);
     document.getElementById("formLoginBtn").addEventListener("click", ocultarMostrarLogin);
-    document.getElementById("logOutBtn").addEventListener("click", logout);
     document.getElementById("agregarCensado").addEventListener("click", agregarCenso);
     document.getElementById("buscarCensoInvitado").addEventListener("click", formInvitado);
     document.getElementById("btnModCensoInvitado").addEventListener("click", cargarModificarCenso);
     document.getElementById("ModificarCensista").addEventListener("click", modificarCenso);
     document.getElementById("eliminarCensoInvitado").addEventListener("click", deseaEliminarCenso);
     document.getElementById("btnConfirmarEliminarCenso").addEventListener("click", eliminarCenso);
-    document.querySelector("#btnListarCensos").addEventListener("click", listarCensosValidos);
-    document.querySelector("#btnBuscarVerificarCenso").addEventListener("click", formBuscarCiValidacion);
-    document.querySelector("#buscarCensoMenuCensista").addEventListener("click", formBuscarCiValidacion);
-    document.querySelector("#btnVerCenso").addEventListener("click", formVerificarCenso);
-    document.querySelector("#btnAgregarCenso").addEventListener("click", agregarCenso);
-    document.querySelector("#verEstadisticas").addEventListener("click", listarEstadisticas);
-    document.querySelector("#btnCambiarCensista").addEventListener("click", cargarDatoSelectCensistas);
-    document.querySelector("#btnDestinoMenuModificar").addEventListener("click", cargarDatoSelectUsuarios);
-    document.querySelector("#btnDestinoCambiarCensista").addEventListener("click", cambiarCensistaDeCenso);
+
+    //censista
+    document.getElementById("registrarCensista").addEventListener("click", registrar);
+    document.getElementById("loguearCensista").addEventListener("click", login);
+    document.getElementById("logOutBtn").addEventListener("click", logout);
+    eventosBtnMenuCensista();
+    eventosBtnCensista();
+    ocultarTodosMenuCensista();
 }
 
+function ocultarTodosMenuCensista() {
+    document.getElementById("formAgregarCenso").hidden = true;
+    document.getElementById("formBuscarCiValidacion").hidden = true;
+    document.getElementById("cambiarCensoCensista").hidden = true;
+    document.getElementById("verCensosPendientes").hidden = true;
+}
+
+function eventosBtnMenuCensista() {
+    document.getElementById("btnMostrarAgregarCenso").addEventListener("click", mostrarAgregarCenso);
+    document.getElementById("btnMostrarListarCensos").addEventListener("click", listarCensosPendientes);
+    document.getElementById("btnMostrarBuscarVerificarCenso").addEventListener("click", mostrarBuscarVerificarCenso);
+    document.getElementById("btnMostrarCambiarCensista").addEventListener("click", mostrarCambiarCensista);
+}
+
+function eventosBtnCensista() {
+    document.querySelector("#buscarCensoMenuCensista").addEventListener("click", formBuscarCiValidacion);
+    document.querySelector("#verEstadisticas").addEventListener("click", listarEstadisticas);
+    document.querySelector("#btnVerCenso").addEventListener("click", mostrarValidarCenso);
+    document.getElementById("validarCenso").addEventListener("click", validarCenso);
+    document.getElementById("seleccionarCenso").addEventListener("click", obtenerCensoCambiarCensoCensista);
+    document.getElementById("asignarNuevoCensista").addEventListener("click", asignarNuevoCensista);
+}
+
+function mostrarAgregarCenso() {
+    ocultarTodosMenuCensista();
+    document.getElementById("formAgregarCenso").hidden = false;
+}
+
+function mostrarBuscarVerificarCenso() {
+    ocultarTodosMenuCensista();
+    document.getElementById("formBuscarCiValidacion").hidden = false;
+}
+function mostrarCambiarCensista() {
+    ocultarTodosMenuCensista();
+    document.getElementById("cambiarCensoCensista").hidden = false;
+    let censosPendientes = miSistema.devolverCensosPendientesNoUsuarioLogueado();
+    let selectCensosPendientes = document.getElementById("selectCensosPendientes");
+    for (let pos = 0; pos < censosPendientes.length; pos++) {
+        let unCenso = censosPendientes[pos];
+        let opcionSelect = document.createElement("option");
+        opcionSelect.value = unCenso.ci;
+        opcionSelect.text = "Censo N°" + (pos + 1) + ": " + unCenso.ci;
+        selectCensosPendientes.add(opcionSelect);
+    }
+}
 
 function registrar() {
     let nombreCensista = document.getElementById("nombreRegistro").value;
@@ -37,7 +79,6 @@ function registrar() {
     nombreDeUsuario = nombreDeUsuario.trim();
     contraseniaCensista = contraseniaCensista.trim();
     nombreDeUsuario = nombreDeUsuario.toLowerCase();
-    resultado.style.display = "block";
 
     if (nombreCensista == "") {
         mensajes = "El nombre no puede estar vacio";
@@ -154,6 +195,7 @@ function logout() {
     document.getElementById("formLoginBtn").style.display = "block";
     document.getElementById("formRegistroBtn").style.display = "block";
     console.log("Usuario logueado: " + miSistema.usuarioLogueado);
+    ocultarTodosMenuCensista();
 }
 
 function ocultarYMostrarObjLogin() {
@@ -173,9 +215,7 @@ function ocultarYMostrarObjLogin() {
 }
 
 function agregarCenso() {
-
-    document.querySelector("#formAgregarCenso").style.display = "block";
-
+    //codigo que agrega un censo y valida si se esta queriendo agregar bajo un usuario logueado o formulario invitado
     let nombrePersona = document.getElementById("nombrePersona").value;
     let apellidoPersona = document.getElementById("apellidoPersona").value;
     let edadPersona = Number(document.getElementById("edadPersona").value);
@@ -184,6 +224,7 @@ function agregarCenso() {
     let selectorOcupacion = document.getElementById("selectOcupacionAgregar").value;
     let resultado = document.getElementById("mensajesAgregar");
     let mensaje = "";
+    let success = false;
 
     //variables de validaciones:
     let cumpleNombre = false;
@@ -235,6 +276,7 @@ function agregarCenso() {
                     ciPersona = document.getElementById("ciPersona").value = "";
                     //muestro mensaje.
                     mensaje = "Censo cargado y asignado al censita logueado";
+                    success = true;
                 } else {
                     mensaje = "Ya existe un censo ingresado con la cedula proporcionada";
                 }
@@ -249,6 +291,7 @@ function agregarCenso() {
                     ciPersona = document.getElementById("ciPersona").value = "";
                     //muestro mensaje.
                     mensaje = "Pre censo cargado y asignado a un censita";
+                    success = true;
                 } else {
                     mensaje = "Ya existe un censo ingresado con la cedula proporcionada";
                 }
@@ -257,10 +300,15 @@ function agregarCenso() {
     }
     resultado.innerHTML = mensaje;
     setTimeout(() => (resultado.innerHTML = ""), 4000);
+    if (success) {
+        setTimeout(() => (document.getElementById("formAgregarCenso").hidden = true), 4000);
+    }
 }
 
 function formInvitado() {
+    document.getElementById("formModificarCenso").hidden = true;
     let resultado = document.getElementById("mensajesFormInvitado");
+    document.getElementById("formAgregarCenso").hidden = true;
     let ciInvitado = document.getElementById("ciInvitado").value;
     let mensaje = "";
     let respuesta = miSistema.buscarCi(ciInvitado);
@@ -299,7 +347,6 @@ function cargarModificarCenso() {
 }
 
 function modificarCenso() {
-
     let nuevoNombre = document.getElementById("nombrePersonaMod").value;
     let nuevoApellido = document.getElementById("apellidoPersonaMod").value;
     let nuevaEdad = Number(document.getElementById("edadPersonaMod").value);
@@ -309,6 +356,7 @@ function modificarCenso() {
     let nuevaOcupacion = document.getElementById("selectOcupacionMod").value;
     let resultado = document.getElementById("mensajesModificar");
     let mensaje = "";
+    let success = false;
 
     //variables de validaciones:
     let cumpleNombre = false;
@@ -359,10 +407,15 @@ function modificarCenso() {
                 nuevaCi = document.getElementById("ciPersonaMod").value = "";
                 //muestro mensaje.
                 mensaje = "Censo actualizado";
+                success = true;
             }
         }
     }
     resultado.innerHTML = mensaje;
+    if (success) {
+        setTimeout(() => (document.getElementById("formModificarCenso").hidden = true), 4000);
+    }
+    setTimeout(() => (resultado.innerHTML = ""), 4000);
 }
 function deseaEliminarCenso() {
     document.getElementById("btnConfirmarEliminarCenso").hidden = false;
@@ -375,41 +428,30 @@ function eliminarCenso() {
     let mensajes = "";
     if (respuesta) {
         mensajes = "Censo eliminado correctamente";
+        document.getElementById("formModificarCenso").hidden = true;
+        document.getElementById("btnConfirmarEliminarCenso").hidden = true;
     } else {
         mensajes = "El censo no existe";
     }
     resultado.innerHTML = mensajes;
 }
+//funcionalidad boton ver censos pendientes por validar
+function listarCensosPendientes() {
+    let tablaHTML = "<table>";
+    tablaHTML += "<tr><th>N° Censo</th><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th><th>Censista a cargo</th>";
+    let lista = miSistema.devolverCensosPendientesUsuarioLogueado();
 
-function listarCensosValidos(){
-
-let tablaHTML ="<table>";
-
-tablaHTML+="<tr><th>N° Censo</th><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th><th>Censista a cargo</th>";
-
-let lista = miSistema.devolverCensosValidados();
-
-for (let pos=0; pos < lista.length; pos++){
-
-    let idCensista= lista[pos].idCensista;
-
-    let usuarioDatos = lista[pos];
-
-    tablaHTML+=`<tr><td>${pos}</td><td>${usuarioDatos.ci}</td><td>${usuarioDatos.nombre}</td><td>${usuarioDatos.apellido}</td><td>${usuarioDatos.edad}</td><td>${usuarioDatos.departamento}</td><td>${miSistema.obtenerNombreCensista(idCensista)}</td>`;
-
+    for (let pos = 0; pos < lista.length; pos++) {
+        let idCensista = lista[pos].idCensista;
+        let usuarioDatos = lista[pos];
+        tablaHTML += `<tr><td>${pos}</td><td>${usuarioDatos.ci}</td><td>${usuarioDatos.nombre}</td><td>${usuarioDatos.apellido}</td><td>${usuarioDatos.edad}</td><td>${usuarioDatos.departamento}</td><td>${miSistema.obtenerNombreCensista(idCensista)}</td>`;
+    }
+    document.querySelector("#mensajeCensosPendientes").innerHTML = tablaHTML;
+    document.querySelector("#verCensosPendientes").hidden = false;
 }
 
-document.querySelector("#mensajeCensosPendientes").innerHTML = tablaHTML;
-
-document.querySelector("#listaCensosPendientes").style.display = "block";
-
-
-}
-
-
+//form validar censo usuario logueado
 function formBuscarCiValidacion() {
-    
-    document.querySelector("#formBuscarCiValidacion").style.display="block";
 
     let resultado = document.getElementById("mensajesFormBuscarCenso");
     let ciInvitado = document.getElementById("ciBuscar").value;
@@ -423,171 +465,103 @@ function formBuscarCiValidacion() {
         document.getElementById("formAgregarCenso").hidden = true;
         document.getElementById("btnsFormBuscarCiValidacion").hidden = true;
     } else {
-       
         mensaje = "Censo sin validar!"
         document.getElementById("btnsFormBuscarCiValidacion").hidden = false;
-        
     }
     resultado.innerHTML = mensaje;
 }
 
+//form mostrar estadisticas
+function listarEstadisticas() {
+    let tablaHTML = `<table id="tabla-estadisticasIndex">`;
 
-function listarEstadisticas(){
+    tablaHTML += "<tr><th>Departamento</th><th>Estudian</th><th>No Trabajan</th><th>Dependientes o independientes</th><th>Porcentaje total de censados</th>";
 
-    let tablaHTML =`<table id="tabla-estadisticasIndex">`;
-
-    tablaHTML+="<tr><th>Departamento</th><th>Estudian</th><th>No Trabajan</th><th>Dependientes o independientes</th><th>Porcentaje total de censados</th>";
-    
     let listaDepartamentos = miSistema.devolverCantidadDepartamentos();
 
-    
-
-    for (let pos=0; pos < listaDepartamentos.length; pos++){
-
+    for (let pos = 0; pos < listaDepartamentos.length; pos++) {
         let unDepartamento = listaDepartamentos[pos];
-
-        let totalCensoDepto= miSistema.devolverCantidadCensosDepartamentos(unDepartamento);
-
-        let totalCensosApp= miSistema.devolverCantidadCensosValidados();
-
-        let porcentaje =totalCensoDepto*100/totalCensosApp;
-
-        tablaHTML+=`<tr><td>${unDepartamento}</td><td>${miSistema.devolverOcupacionEstudian(unDepartamento)}</td><td>${miSistema.devolverOcupacionNoTrabaja(unDepartamento)}</td><td>${miSistema.devolverOcupacionDependienteOindependiente(unDepartamento)}</td><td>${porcentaje.toFixed(2)}</td>`;
-    
+        let totalCensoDepto = miSistema.devolverCantidadCensosDepartamentos(unDepartamento);
+        let totalCensosApp = miSistema.devolverCantidadCensosValidados();
+        let porcentaje = totalCensoDepto * 100 / totalCensosApp;
+        tablaHTML += `<tr><td>${unDepartamento}</td><td>${miSistema.devolverOcupacionEstudian(unDepartamento)}</td><td>${miSistema.devolverOcupacionNoTrabaja(unDepartamento)}</td><td>${miSistema.devolverOcupacionDependienteOindependiente(unDepartamento)}</td><td>${porcentaje.toFixed(2)}</td>`;
     }
-    
     document.querySelector("#mensajeEstadisticasCenso").innerHTML = tablaHTML;
-
 }
 
+function mostrarValidarCenso() {
+    let cedulaACensar = document.getElementById("ciBuscar").value;
+    let mensajes = "";
+    let resultado = document.getElementById("mensajesFormBuscarCenso");
 
-function formVerificarCenso(cedula){
-    
+    let censoAValidar = miSistema.obtenerCenso(cedulaACensar);
+    if (censoAValidar != null && censoAValidar.idCensista === miSistema.usuarioLogueado.id) {
+        document.getElementById("nombreCensado").innerHTML = censoAValidar.nombre;
+        document.getElementById("apellidoCensado").innerHTML = censoAValidar.apellido;
+        document.getElementById("edadCensado").innerHTML = censoAValidar.edad;
+        document.getElementById("cedulaCensado").innerHTML = censoAValidar.ci;
+        document.getElementById("deptoCensado").innerHTML = censoAValidar.departamento;
+        document.getElementById("ocupCensado").innerHTML = censoAValidar.ocupacion;
+        document.getElementById("verCensoCensista").hidden = false;
 
-    document.querySelector("#formVerificarCenso").style.display="block";
-
-    let tablaHTML ="<table>";
-
-    let posCenso= miSistema.obtenerCenso(cedula);
-
-    let datosCenso= miSistema.censos[posCenso];
-
-    tablaHTML+="<tr><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Ocupacion</th><th>Departamento</th>";
-
-    tablaHTML+=`<tr><td>${datosCenso.ci}</td><td>${datosCenso.nombre}</td><td>${datosCenso.apellido}</td><td>${datosCenso.edad}</td><td>${datosCenso.ocupacion}</td><td>${datosCenso.departamento}</td>`;
-
-    document.querySelector("#mensajeDatosCenso").innerHTML = tablaHTML;
+    } else if (!(censoAValidar != null)) {
+        mensajes = "El censo no existe";
+    } else {
+        mensajes = "El censo no esta asignado a usted";
+    }
+    resultado.innerHTML = mensajes;
 }
 
-
-function comboDesplegableParaCambio(){
-
-let comboCensista = "<select>";
-
-let datosCensista = miSistema.obtenerTodoCensista();
-
-//iteracion para comboCensista
-for(let pos=0; pos<datosCensista.length;pos++){
-
-let datoPos = datosCensista[pos];
-
-comboCensista += `<option value="${datoPos.id}">${datoPos.nombre}</option>`;
-
-}
-document.querySelector("#mensajeCambiarDeCenso").innerHTML= comboCensista;
-
-return comboCensista;
+function validarCenso() {
+    let cedulaACensar = document.getElementById("ciBuscar").value;
+    let censoAValidar = miSistema.obtenerCenso(cedulaACensar);
+    censoAValidar.validado = true;
+    document.getElementById("mensajesFormBuscarCenso").innerHTML = "Censo validado";
 }
 
+function obtenerCensoCambiarCensoCensista() {
+    document.getElementById("divElegirCensista").hidden = false;
 
-function listarDatosParaModificarCensista(){
+    let censoSeleccionado = document.getElementById("selectCensosPendientes").value;
+    let censoACambiar = miSistema.obtenerCenso(censoSeleccionado);
 
-    document.querySelector("#mnuCambiarDeCensista").style.display="block";
+    document.getElementById("nombreCensado2").innerHTML = censoACambiar.nombre;
+    document.getElementById("apellidoCensado2").innerHTML = censoACambiar.apellido;
+    document.getElementById("edadCensado2").innerHTML = censoACambiar.edad;
+    document.getElementById("cedulaCensado2").innerHTML = censoACambiar.ci;
+    document.getElementById("deptoCensado2").innerHTML = censoACambiar.departamento;
+    document.getElementById("ocupCensado2").innerHTML = censoACambiar.ocupacion;
 
-    document.querySelector("#listaCensosPendientes").style.display="none";
+    let selectCensistas = document.getElementById("selectCensistas");
+    let censistasMenosLogueado = miSistema.obtenerTodoCensistaMenosLogueado();
+    selectCensistas.innerHTML = "";
 
-    let tablaHTML ="<table>";
-
-tablaHTML+="<tr><th>Cedula</th><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Departamento</th>";
-
-let lista = miSistema.devolverCensoSeleccionado();
-
-for (let pos=0; pos < lista.length; pos++){
-
-    let idCensista= lista[pos].idCensista;
-
-    let usuarioDato = lista[pos];
-
-    tablaHTML+=`<tr><td>${usuarioDato.ci}</td><td>${usuarioDato.nombre}</td><td>${usuarioDato.apellido}</td><td>${usuarioDato.edad}</td><td>${usuarioDato.departamento}</td>`;
-
+    for (let pos = 0; pos < censistasMenosLogueado.length; pos++) {
+        let unCensista = censistasMenosLogueado[pos];
+        let opcionSelect = document.createElement("option");
+        opcionSelect.value = unCensista.id;
+        opcionSelect.text = "Censista N°" + (pos + 1) + ": " + unCensista.nombreDeUsuario;
+        selectCensistas.add(opcionSelect);
+    }
 }
 
-document.querySelector("#mensajeCambiarDeCenso").innerHTML = tablaHTML;
+function asignarNuevoCensista() {
+    let idCensista = Number(document.getElementById("selectCensistas").value);
+    let ciCenso = document.getElementById("selectCensosPendientes").value;
+    let mensajes = "";
+    let resultado = document.getElementById("mensajesCambiarCensoCensista");
+    let respuesta = miSistema.reAsignarCensista(idCensista, ciCenso);
+    let success = false;
 
-}
-
-
-function cambiarCensistaDeCenso(){
-
-
-let datosDelCenso = document.querySelector("#selListaCensos").value;
-
-cargarDatoSelectCensistas("selListaCensos");
-            let censoTemp = miSistema.obtenerCenso(); 
-            let posCenso = miSistema.obtenerCenso(censoTemp.ci);
-            document.querySelector("#selListaCensos").selectedIndex = posCenso;
-            
-}
-
-
-
-
-function cargarDatoSelectCensistas() {
-
-    listarCensosValidos();
-
-    let miSelector = document.querySelector("#selListaCensos");
-
-    miSelector.innerHTML = "";
-
-    let datosPersona = miSistema.devolverCensosValidados();
-
-    for(let pos=0; pos < datosPersona.length; pos++){
-    
-    let unCenso= datosPersona[pos];
-
-    miSelector.innerHTML += `<option value="${pos}">N°${pos} | ${unCenso.nombre}</option>`
-
-
-
-    
+    if (respuesta) {
+        mensajes = "Censo re asignado correctamente";
+        success = true;
+    } else {
+        mensajes = "Algo no salio como se esperaba"
     }
 
-    
-
-}
-
-function cargarDatoSelectUsuarios() {
-
-    listarDatosParaModificarCensista();
-
-    let miSelector = document.querySelector("#selListaUsuarios");
-
-    miSelector.innerHTML = "";
-
-    let datosUsuarios = miSistema.usuarios;
-
-    for(let pos=0; pos < datosUsuarios.length; pos++){
-    
-    let unUsuario= datosUsuarios[pos];
-
-    miSelector.innerHTML += `<option value="${pos}">N°${pos} | ${unUsuario.nombre}</option>`
-
-
-
-    
+    resultado.innerHTML = mensajes;
+    if (success) {
+        setTimeout(() => (document.getElementById("cambiarCensoCensista").hidden = true), 4000);
     }
-
-    
-
 }
