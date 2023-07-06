@@ -382,7 +382,7 @@ function modificarCenso() {
         }
         //verifcar que el apellido no tenga numeros
         for (let pos = 0; pos < nuevoApellido.length; pos++) {
-            if (!isNaN(nuevoApellido[pos])) {
+            if (isNaN(nuevoApellido[pos])) {
                 mensaje = "Apellido no valido";
             } else {
                 cumpleApellido = true;
@@ -390,7 +390,7 @@ function modificarCenso() {
         }
         //verifcar que el nombre no tenga numeros
         for (let pos = 0; pos < nuevoNombre.length; pos++) {
-            if (!isNaN(nuevoNombre[pos])) {
+            if (isNaN(nuevoNombre[pos])) {
                 mensaje = "Nombre no valido";
             } else {
                 cumpleNombre = true;
