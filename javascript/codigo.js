@@ -173,7 +173,7 @@ function login() {
             mensaje = "Login exitoso";
             console.log(miSistema.usuarioLogueado);
             flag = true;
-            document.getElementById("nombreCensistaH1").innerHTML += miSistema.usuarioLogueado.nombreDeUsuario;
+            document.getElementById("nombreCensistaH1").innerHTML = "Censita:" + miSistema.usuarioLogueado.nombreDeUsuario;
         } else {
             mensaje = "El usuario no existe o la contraseña es incorrecta";
         }
@@ -250,7 +250,7 @@ function agregarCenso() {
         }
         //verifcar que el apellido no tenga numeros
         for (let pos = 0; pos < apellidoPersona.length; pos++) {
-            if (!isNaN(apellidoPersona[pos])) {
+            if (isNaN(apellidoPersona[pos])) {
                 mensaje = "Apellido no valido";
             } else {
                 cumpleApellido = true;
@@ -258,7 +258,7 @@ function agregarCenso() {
         }
         //verifcar que el nombre no tenga numeros
         for (let pos = 0; pos < nombrePersona.length; pos++) {
-            if (!isNaN(nombrePersona[pos])) {
+            if (isNaN(nombrePersona[pos])) {
                 mensaje = "Nombre no valido";
             } else {
                 cumpleNombre = true;
